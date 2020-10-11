@@ -5,9 +5,9 @@
     <script src="view/javascript/dadatapro/dadatapro.js" type="text/javascript"></script>
     <script src="view/javascript/dadatapro/pages/checkout_checkout.js" type="text/javascript"></script>
     <script>
-        //if('dadataCheckoutCheckout' in window) {
+        if('dadataCheckoutCheckout' in window) {
             dadataCheckoutCheckout();
-        //}
+        }
     </script>
     <!-- Dadata END -->
 	<div class="page-header">

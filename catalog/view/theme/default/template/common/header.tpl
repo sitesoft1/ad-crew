@@ -98,9 +98,9 @@
   </div>
     
     <script>
-        //if('dadataCheckoutCheckout' in window) {
+        if('dadataCheckoutCheckout' in window) {
             dadataCheckoutCheckout();
-       // }
+        }
     </script>
 </header>
 <?php if ($categories) { ?>

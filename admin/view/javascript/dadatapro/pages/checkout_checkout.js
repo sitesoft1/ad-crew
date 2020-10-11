@@ -16,7 +16,29 @@ function dadataCheckoutCheckout() {
         type: 'fio',
         delay: 777,
         queue: [{
+            awaiting: "#tab-order [name='shipping_firstname']", prefetch: function (target) {
+                return {query: '', parts: ['NAME', 'PATRONYMIC']}
+            }, callback: function (suggest, helper, element) {
+                return helper('name patronymic', suggest);
+            }
+        }]
+    });
+    UserDadata({
+        type: 'fio',
+        delay: 777,
+        queue: [{
             awaiting: "#tab-order [name='lastname']", prefetch: function (target) {
+                return {query: '', parts: ['SURNAME']}
+            }, callback: function (suggest, helper, element) {
+                return helper('surname', suggest);
+            }
+        }]
+    });
+    UserDadata({
+        type: 'fio',
+        delay: 777,
+        queue: [{
+            awaiting: "#tab-order [name='shipping_lastname']", prefetch: function (target) {
                 return {query: '', parts: ['SURNAME']}
             }, callback: function (suggest, helper, element) {
                 return helper('surname', suggest);
@@ -36,11 +58,11 @@ function dadataCheckoutCheckout() {
         type: 'address',
         delay: 777,
         queue: [{
-            awaiting: "#tab-order [name='zone_id']", callback: function (suggest, helper, element) {
+            awaiting: "#tab-order [name='shipping_zone_id']", callback: function (suggest, helper, element) {
                 return helper('region', suggest);
             }
         }, {
-            awaiting: "#tab-order [name='city']", clear: true, prefetch: function (target) {
+            awaiting: "#tab-order [name='shipping_city']", clear: true, prefetch: function (target) {
                 return {
                     locations: [JSON.parse(target.getAttribute('data-dadata'))],
                     from_bound: {'value': 'city'},
@@ -54,7 +76,7 @@ function dadataCheckoutCheckout() {
                 return helper('city_with_type', suggest);
             }
         }, {
-            awaiting: "#tab-order [name='address_1']", clear: true, prefetch: function (target) {
+            awaiting: "#tab-order [name='shipping_address_1']", clear: true, prefetch: function (target) {
                 return {
                     'locations': [JSON.parse(target.getAttribute('data-dadata'))],
                     'from_bound': {'value': 'street',},
@@ -82,7 +104,7 @@ function dadataCheckoutCheckout() {
                 return helper('street_with_type, house_type.house, block_type-block, flat_type.flat', suggest);
             }
         }, {
-            awaiting: "#tab-order [name='postcode']", callback: function (suggest, helper, element) {
+            awaiting: "#tab-order [name='shipping_postcode']", callback: function (suggest, helper, element) {
                 return helper('postal_code', suggest);
             }
         }]
@@ -113,12 +135,12 @@ function dadataCheckoutCheckout() {
         type: 'address',
         delay: 777,
         queue: [{
-            awaiting: "#tab-order [name='zone_id']",
+            awaiting: "#tab-order [name='shipping_zone_id']",
             callback: function (suggest, helper, element) {
                 return helper('region', suggest);
             }
         }, {
-            awaiting: "#tab-order [name='city']", clear: true, prefetch: function (target) {
+            awaiting: "#tab-order [name='shipping_city']", clear: true, prefetch: function (target) {
                 return {
                     locations: [JSON.parse(target.getAttribute('data-dadata'))],
                     from_bound: {'value': 'city'},
@@ -132,7 +154,7 @@ function dadataCheckoutCheckout() {
                 return helper('city_with_type', suggest);
             }
         }, {
-            awaiting: "#tab-order [name='address_1']", clear: true, prefetch: function (target) {
+            awaiting: "#tab-order [name='shipping_address_1']", clear: true, prefetch: function (target) {
                 return {
                     'locations': [JSON.parse(target.getAttribute('data-dadata'))],
                     'from_bound': {'value': 'street',},
@@ -160,7 +182,7 @@ function dadataCheckoutCheckout() {
                 return helper('street_with_type, house_type.house, block_type-block, flat_type.flat', suggest);
             }
         }, {
-            awaiting: "#tab-order [name='postcode']", callback: function (suggest, helper, element) {
+            awaiting: "#tab-order [name='shipping_postcode']", callback: function (suggest, helper, element) {
                 return helper('postal_code', suggest);
             }
         }]
