@@ -1,5 +1,15 @@
 <?php echo $header; ?><?php echo $column_left; ?>
 <div id="content" class="orderpro-content">
+    <!-- Dadata -->
+    <link href="view/javascript/dadatapro/dadatapro.css" type="text/css" rel="stylesheet" media="screen" />
+    <script src="view/javascript/dadatapro/dadatapro.js" type="text/javascript"></script>
+    <script src="view/javascript/dadatapro/pages/checkout_checkout.js" type="text/javascript"></script>
+    <script>
+        //if('dadataCheckoutCheckout' in window) {
+            dadataCheckoutCheckout();
+        //}
+    </script>
+    <!-- Dadata END -->
 	<div class="page-header">
 		<div class="container-fluid">
 		  <div class="pull-right">
@@ -915,14 +925,24 @@ $('#product').on('click', '.product-popap', function() {
 		href: imgsrc
 	});
 });
+
 $('input[name=\'firstname\']').blur(function() {
 	var firstname = $('input[name=\'firstname\']').val();
 	var shipping_firstname = $('input[name=\'shipping_firstname\']').val();
 	$('input[name=\'payment_firstname\']').val(firstname);
-	if ((shipping_firstname.length < 1) || (shipping_firstname == '<?php echo $text_noname; ?>')) {
+	//if ((shipping_firstname.length < 1) || (shipping_firstname == '<?php echo $text_noname; ?>')) {
 	   $('input[name=\'shipping_firstname\']').val(firstname);
-	}
+	//}
 });
+    
+    $('input[name=\'shipping_firstname\']').focus(function() {
+        var firstname = $('input[name=\'firstname\']').val();
+        var shipping_firstname = $('input[name=\'shipping_firstname\']').val();
+        $('input[name=\'payment_firstname\']').val(firstname);
+            $('input[name=\'shipping_firstname\']').val(firstname);
+    });
+
+
 $('input[name=\'lastname\']').blur(function() {
 	var lastname = $('input[name=\'lastname\']').val();
 	var shipping_lastname = $('input[name=\'shipping_lastname\']').val();
@@ -931,6 +951,13 @@ $('input[name=\'lastname\']').blur(function() {
 	   $('input[name=\'shipping_lastname\']').val(lastname);
 	}
 });
+    $('input[name=\'shipping_lastname\']').focus(function() {
+        var lastname = $('input[name=\'lastname\']').val();
+        var shipping_lastname = $('input[name=\'shipping_lastname\']').val();
+        $('input[name=\'payment_lastname\']').val(lastname);
+            $('input[name=\'shipping_lastname\']').val(lastname);
+    });
+
 $('input[name=\'payment_company\']').blur(function() {
 	var payment_company = $('input[name=\'payment_company\']').val();
 	$('input[name=\'shipping_company\']').val(payment_company);

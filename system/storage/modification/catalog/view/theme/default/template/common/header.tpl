@@ -99,6 +99,12 @@
       <div class="col-sm-3"><?php echo $cart; ?></div>
     </div>
   </div>
+    
+    <script>
+        //if('dadataCheckoutCheckout' in window) {
+            dadataCheckoutCheckout();
+       // }
+    </script>
 </header>
 <?php if ($categories) { ?>
 <div class="container">
