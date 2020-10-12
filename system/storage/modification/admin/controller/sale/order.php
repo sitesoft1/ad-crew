@@ -207,8 +207,27 @@ $data['invoice'] = ($this->config->get('orderpro_invoice_type')) ? $this->url->l
 		$order_total = $this->model_sale_order->getTotalOrders($filter_data);
 
 		$results = $this->model_sale_order->getOrders($filter_data);
+        //get order history
+		//$this->load->model('sale/orderpro');
 
 		foreach ($results as $result) {
+		    
+		    $order_history = $this->model_sale_order->getOrderHistories($result['order_id']);
+            if(!empty($order_history)){
+                $order_history = end($order_history);
+            }
+		          
+		    if(!empty($order_history['comment'])){
+                $order_history_comment = $order_history['comment'];
+            }else{
+                $order_history_comment = '';
+            }
+            if(!empty($order_history['date_added'])){
+                $order_history_date_added = $order_history['date_added'];
+            }else{
+                $order_history_date_added = '';
+            }
+            
 			$data['orders'][] = array(
 				'order_id'      => $result['order_id'],
 				'customer'      => $result['customer'],
@@ -217,7 +236,9 @@ $data['invoice'] = ($this->config->get('orderpro_invoice_type')) ? $this->url->l
 				'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
 				'shipping_code' => $result['shipping_code'],
-				'view'          => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true),
+				'order_history_comment' => nl2br($order_history_comment),
+				'order_history_date_added' => date('d.m.Y H:i', strtotime($order_history_date_added)),
+                'view'          => $this->url->link('sale/order/info', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true),
 				'edit'          => $this->url->link('sale/orderpro/edit', 'token=' . $this->session->data['token'] . '&order_id=' . $result['order_id'] . $url, true)
 			);
 		}
